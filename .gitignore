@@ -9,6 +9,7 @@
 
 # production
 /build
+/.vercel
 
 # local files
 .DS_Store
