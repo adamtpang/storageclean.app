@@ -70,6 +70,9 @@ const comparison = [
   { capability: "Verify completed work", conventional: "Varies by tool", storageclean: "Planned evidence step" },
 ];
 
+const windowsDownloadUrl =
+  "https://github.com/adamtpang/storageclean.app/releases/download/v0.3.0-beta.1/StorageClean-Setup-0.3.0-beta.1-win-x64.exe";
+
 function BrandMark() {
   return (
     <span className="grid size-9 grid-cols-3 items-end gap-0.5 rounded-lg bg-primary p-2 text-primary-foreground" aria-hidden="true">
@@ -90,19 +93,19 @@ function SectionHeading({ eyebrow, title, copy }: { eyebrow: string; title: stri
   );
 }
 
-function WindowsComingSoonButton({ filled = false }: { filled?: boolean }) {
+function WindowsDownloadButton({ filled = false }: { filled?: boolean }) {
   return (
-    <button
-      type="button"
-      disabled
-      title="A signed Windows installer is in development"
-      className={`inline-flex min-h-11 cursor-not-allowed items-center justify-center gap-2 rounded-md px-5 text-sm font-semibold opacity-80 ${
-        filled ? "bg-primary text-primary-foreground" : "border border-primary/25 bg-primary/5 text-primary"
+    <a
+      href={windowsDownloadUrl}
+      className={`focus-ring inline-flex min-h-11 items-center justify-center gap-2 rounded-md px-5 text-sm font-semibold transition-colors duration-100 ease-out active:translate-y-px ${
+        filled
+          ? "bg-primary text-primary-foreground hover:bg-primary/90"
+          : "border border-primary/25 bg-primary/5 text-primary hover:bg-primary/10"
       }`}
     >
       <MonitorDown aria-hidden="true" className="size-4 -translate-y-px" strokeWidth={1.8} />
-      Windows app coming soon
-    </button>
+      Download Windows beta
+    </a>
   );
 }
 
@@ -145,7 +148,7 @@ export default function Home() {
           <div>
             <div className="inline-flex min-h-10 items-center gap-2 rounded-full border border-border bg-card/80 px-3 text-xs font-semibold text-muted-foreground">
               <span className="size-1.5 rounded-full bg-success" aria-hidden="true" />
-              Interactive concept with synthetic Windows audit data
+              Read-only Windows beta available
             </div>
 
             <h1 className="mt-7 max-w-3xl text-balance text-5xl font-semibold leading-[0.98] tracking-[-0.055em] sm:text-6xl lg:text-7xl">
@@ -165,7 +168,7 @@ export default function Home() {
                 Explore the audit
                 <ArrowRight aria-hidden="true" className="size-4 -translate-y-px" strokeWidth={1.8} />
               </a>
-              <WindowsComingSoonButton />
+              <WindowsDownloadButton />
               <a
                 href="#safety"
                 className="focus-ring inline-flex min-h-11 items-center justify-center gap-2 rounded-md border border-border bg-card px-5 text-sm font-semibold transition-colors duration-100 ease-out hover:bg-accent active:translate-y-px"
@@ -414,7 +417,7 @@ export default function Home() {
               <div>
                 <div className="flex items-center gap-2 text-primary">
                   <Sparkles aria-hidden="true" className="size-4" strokeWidth={1.8} />
-                  <p className="text-xs font-semibold uppercase tracking-[0.14em]">Product prototype in development</p>
+                  <p className="text-xs font-semibold uppercase tracking-[0.14em]">Read-only desktop beta</p>
                 </div>
                 <h2 className="mt-5 max-w-3xl text-balance text-3xl font-semibold tracking-[-0.04em] sm:text-5xl">
                   Clear space without losing the reason you kept it.
@@ -423,7 +426,7 @@ export default function Home() {
                   Designed around lessons from hands-on storage audits: recurring growth, concentrated usage, and files whose value cannot be inferred from an extension.
                 </p>
               </div>
-              <WindowsComingSoonButton filled />
+              <WindowsDownloadButton filled />
             </div>
           </div>
         </div>
@@ -440,7 +443,7 @@ export default function Home() {
           </div>
           <div className="flex items-center gap-2 font-mono tabular-nums">
             <Layers3 aria-hidden="true" className="size-4" strokeWidth={1.8} />
-            <span>Landing prototype · 2026</span>
+            <span>Windows read-only beta · v0.3.0</span>
           </div>
         </div>
       </footer>

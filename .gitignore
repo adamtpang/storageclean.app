@@ -28,3 +28,8 @@ next-env.d.ts
 
 # generated brand selection previews
 .brand-preview/
+
+# .NET desktop build output
+desktop/**/bin/
+desktop/**/obj/
+artifacts/windows/
