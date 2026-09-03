@@ -1,6 +1,6 @@
 # StorageClean for Windows
 
-This is the native, read-only StorageClean beta.
+This is the native, read-only StorageClean beta. The v0.4 dashboard can scan one drive or every mounted fixed and removable drive, compare used and free capacity, rank the largest top-level items across drives, and export the complete audit as JSON.
 
 ## Safety boundary
 

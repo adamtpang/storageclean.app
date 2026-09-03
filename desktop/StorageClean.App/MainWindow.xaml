@@ -3,12 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="StorageClean"
         Width="1180"
-        Height="760"
+        Height="880"
         MinWidth="900"
-        MinHeight="620"
+        MinHeight="720"
         WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -49,6 +50,7 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <TextBlock VerticalAlignment="Center" FontWeight="SemiBold" Text="Drive" />
@@ -59,10 +61,11 @@
                           Padding="10,5"
                           DisplayMemberPath="Display"
                           VerticalContentAlignment="Center" />
-                <Button x:Name="ScanButton" Grid.Column="2" Style="{StaticResource PrimaryButton}" Click="ScanButton_Click" Content="Scan drive" />
-                <Button x:Name="CancelButton" Grid.Column="3" Margin="8,0,0,0" Style="{StaticResource SecondaryButton}" Click="CancelButton_Click" Content="Cancel" IsEnabled="False" />
-                <Button x:Name="ExportButton" Grid.Column="4" Margin="8,0,0,0" Style="{StaticResource SecondaryButton}" Click="ExportButton_Click" Content="Export JSON" IsEnabled="False" />
-                <StackPanel Grid.Column="5" Margin="20,0,0,0" VerticalAlignment="Center">
+                <Button x:Name="ScanButton" Grid.Column="2" Style="{StaticResource SecondaryButton}" Click="ScanButton_Click" Content="Scan selected" />
+                <Button x:Name="ScanAllButton" Grid.Column="3" Margin="8,0,0,0" Style="{StaticResource PrimaryButton}" Click="ScanAllButton_Click" Content="Scan all drives" />
+                <Button x:Name="CancelButton" Grid.Column="4" Margin="8,0,0,0" Style="{StaticResource SecondaryButton}" Click="CancelButton_Click" Content="Cancel" IsEnabled="False" />
+                <Button x:Name="ExportButton" Grid.Column="5" Margin="8,0,0,0" Style="{StaticResource SecondaryButton}" Click="ExportButton_Click" Content="Export JSON" IsEnabled="False" />
+                <StackPanel Grid.Column="6" Margin="20,0,0,0" VerticalAlignment="Center">
                     <TextBlock x:Name="StatusText" FontSize="12" Foreground="{StaticResource MutedBrush}" Text="Choose a drive and start a read-only scan." TextTrimming="CharacterEllipsis" />
                     <ProgressBar x:Name="ScanProgress" Height="4" Margin="0,7,0,0" Minimum="0" Maximum="100" Value="0" Foreground="{StaticResource PrimaryBrush}" Background="{StaticResource PrimarySoftBrush}" />
                 </StackPanel>
@@ -96,13 +99,66 @@
             </Border>
             <Border Grid.Column="3" Style="{StaticResource Card}">
                 <StackPanel>
-                    <TextBlock FontSize="11" Foreground="{StaticResource MutedBrush}" Text="TOP-LEVEL ITEMS" />
+                    <TextBlock FontSize="11" Foreground="{StaticResource MutedBrush}" Text="RANKED ITEMS" />
                     <TextBlock x:Name="ItemsText" Margin="0,8,0,0" FontSize="22" FontWeight="SemiBold" Text="-" />
                 </StackPanel>
             </Border>
         </Grid>
 
-        <Border Grid.Row="3" Margin="24,14,24,16" Padding="0" Style="{StaticResource Card}">
+        <Border Grid.Row="3" Margin="24,14,24,0" Padding="0" Style="{StaticResource Card}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid Margin="18,14,18,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel>
+                        <TextBlock FontSize="16" FontWeight="SemiBold" Text="Drive overview" />
+                        <TextBlock Margin="0,4,0,0" FontSize="11" Foreground="{StaticResource MutedBrush}" Text="Compare capacity, pressure, and the best next move across every mounted drive." />
+                    </StackPanel>
+                    <TextBlock Grid.Column="1" VerticalAlignment="Center" FontSize="11" Foreground="{StaticResource MutedBrush}" Text="used  •  free  •  health  •  recommendation" />
+                </Grid>
+                <DataGrid x:Name="DriveSummaryGrid"
+                          Grid.Row="1"
+                          Height="112"
+                          AutoGenerateColumns="False"
+                          IsReadOnly="True"
+                          CanUserAddRows="False"
+                          CanUserDeleteRows="False"
+                          HeadersVisibility="Column"
+                          GridLinesVisibility="Horizontal"
+                          BorderThickness="0"
+                          RowHeaderWidth="0"
+                          Background="Transparent"
+                          HorizontalGridLinesBrush="{StaticResource BorderBrush}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Drive" Binding="{Binding Drive}" Width="72" />
+                        <DataGridTextColumn Header="Label" Binding="{Binding Label}" Width="150" />
+                        <DataGridTemplateColumn Header="Used" Width="170">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Grid Margin="0,5">
+                                        <ProgressBar Height="9" Minimum="0" Maximum="100" Value="{Binding UsedPercent}" Foreground="{StaticResource PrimaryBrush}" Background="{StaticResource PrimarySoftBrush}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn Header="Capacity" Binding="{Binding Capacity}" Width="105" />
+                        <DataGridTextColumn Header="Used" Binding="{Binding Used}" Width="105" />
+                        <DataGridTextColumn Header="Free" Binding="{Binding Free}" Width="105" />
+                        <DataGridTextColumn Header="Free %" Binding="{Binding FreePercent, StringFormat={}{0:F1}%}" Width="75" />
+                        <DataGridTextColumn Header="Health" Binding="{Binding Health}" Width="85" />
+                        <DataGridTextColumn Header="Recommended next action" Binding="{Binding Recommendation}" Width="*" MinWidth="330" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </Border>
+
+        <Border Grid.Row="4" Margin="24,14,24,16" Padding="0" Style="{StaticResource Card}">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -157,13 +213,13 @@
             </Grid>
         </Border>
 
-        <Border Grid.Row="4" Background="{StaticResource SurfaceBrush}" BorderBrush="{StaticResource BorderBrush}" BorderThickness="0,1,0,0">
+        <Border Grid.Row="5" Background="{StaticResource SurfaceBrush}" BorderBrush="{StaticResource BorderBrush}" BorderThickness="0,1,0,0">
             <Grid Margin="24,11">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <TextBlock FontSize="11" Foreground="{StaticResource MutedBrush}" Text="v0.3.0 beta  •  Local scan  •  Reparse points excluded  •  Bounded concurrency" />
+                <TextBlock FontSize="11" Foreground="{StaticResource MutedBrush}" Text="v0.4.0 beta  •  All-drive scan  •  Reparse points excluded  •  Bounded concurrency" />
                 <Button Grid.Column="1" BorderThickness="0" Background="Transparent" Foreground="{StaticResource PrimaryBrush}" Cursor="Hand" Click="WebsiteButton_Click" Content="storageclean.app" />
             </Grid>
         </Border>
