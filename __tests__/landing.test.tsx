@@ -34,4 +34,18 @@ describe("landing page", () => {
       expect(container.querySelectorAll(`#${id}`).length).toBe(1);
     }
   });
+
+  it("keeps the sticky header out of any scroll-container ancestor", () => {
+    const { container } = render(<Home />);
+    const header = container.querySelector("header");
+
+    expect(header?.className).toContain("sticky");
+    expect(header?.className).toContain("top-0");
+
+    // overflow-hidden, overflow-auto, and overflow-scroll create a scroll container
+    // that carries a nested sticky header away; overflow-*-clip is the only safe clip.
+    for (let node = header?.parentElement; node; node = node.parentElement) {
+      expect(node.className).not.toMatch(/overflow(?:-[xy])?-(?:hidden|auto|scroll)/);
+    }
+  });
 });
