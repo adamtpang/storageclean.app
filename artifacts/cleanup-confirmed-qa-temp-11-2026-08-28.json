@@ -1,0 +1,89 @@
+﻿{
+    "Confirmation":  "Adam approved the exact 11 reviewed SellSniper QA Temp folders on 2026-08-28.",
+    "CompletedAt":  "2026-08-28T21:15:43.7725361+08:00",
+    "Removed":  11,
+    "SkippedActive":  0,
+    "Failed":  0,
+    "MeasuredRemovedGiB":  14.415,
+    "ActualFreeSpaceGainGiB":  14.541,
+    "CFreeGiB":  20.47,
+    "Results":  [
+                    {
+                        "Path":  "C:\\Users\\adamp\\AppData\\Local\\Temp\\sellsniper-company-qa",
+                        "Status":  "removed",
+                        "MeasuredGiB":  2.646,
+                        "ActiveReferences":  0,
+                        "Detail":  null
+                    },
+                    {
+                        "Path":  "C:\\Users\\adamp\\AppData\\Local\\Temp\\sellsniper-campaign-qa",
+                        "Status":  "removed",
+                        "MeasuredGiB":  2.303,
+                        "ActiveReferences":  0,
+                        "Detail":  null
+                    },
+                    {
+                        "Path":  "C:\\Users\\adamp\\AppData\\Local\\Temp\\sellsniper-specialist-qa",
+                        "Status":  "removed",
+                        "MeasuredGiB":  2.032,
+                        "ActiveReferences":  0,
+                        "Detail":  null
+                    },
+                    {
+                        "Path":  "C:\\Users\\adamp\\AppData\\Local\\Temp\\sellsniper-search-performance-qa",
+                        "Status":  "removed",
+                        "MeasuredGiB":  1.82,
+                        "ActiveReferences":  0,
+                        "Detail":  null
+                    },
+                    {
+                        "Path":  "C:\\Users\\adamp\\AppData\\Local\\Temp\\sellsniper-google-connection-qa",
+                        "Status":  "removed",
+                        "MeasuredGiB":  1.134,
+                        "ActiveReferences":  0,
+                        "Detail":  null
+                    },
+                    {
+                        "Path":  "C:\\Users\\adamp\\AppData\\Local\\Temp\\sellsniper-search-console-links-qa",
+                        "Status":  "removed",
+                        "MeasuredGiB":  1.408,
+                        "ActiveReferences":  0,
+                        "Detail":  null
+                    },
+                    {
+                        "Path":  "C:\\Users\\adamp\\AppData\\Local\\Temp\\sellsniper-link-evidence-qa",
+                        "Status":  "removed",
+                        "MeasuredGiB":  0.808,
+                        "ActiveReferences":  0,
+                        "Detail":  null
+                    },
+                    {
+                        "Path":  "C:\\Users\\adamp\\AppData\\Local\\Temp\\sellsniper-repository-context-qa",
+                        "Status":  "removed",
+                        "MeasuredGiB":  0.675,
+                        "ActiveReferences":  0,
+                        "Detail":  null
+                    },
+                    {
+                        "Path":  "C:\\Users\\adamp\\AppData\\Local\\Temp\\sellsniper-brand-profile-qa",
+                        "Status":  "removed",
+                        "MeasuredGiB":  0.585,
+                        "ActiveReferences":  0,
+                        "Detail":  null
+                    },
+                    {
+                        "Path":  "C:\\Users\\adamp\\AppData\\Local\\Temp\\sellsniper-refresh-qa",
+                        "Status":  "removed",
+                        "MeasuredGiB":  0.585,
+                        "ActiveReferences":  0,
+                        "Detail":  null
+                    },
+                    {
+                        "Path":  "C:\\Users\\adamp\\AppData\\Local\\Temp\\sellsniper-feed-qa",
+                        "Status":  "removed",
+                        "MeasuredGiB":  0.419,
+                        "ActiveReferences":  0,
+                        "Detail":  null
+                    }
+                ]
+}

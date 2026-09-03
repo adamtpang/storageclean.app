@@ -1,0 +1,88 @@
+{
+  "snapshot": {
+    "captured_at": "2026-08-28T10:28:00+08:00",
+    "units": "GiB",
+    "notes": [
+      "Logical file sizes are used for folder measurements.",
+      "NTFS hardlinks can make Windows and installed-application totals non-additive.",
+      "No games or media were moved during this audit."
+    ]
+  },
+  "drives": [
+    {
+      "drive": "C:",
+      "label": "Laptop",
+      "capacity_gib": 933.02,
+      "free_gib": 3.77,
+      "used_gib": 929.25
+    },
+    {
+      "drive": "E:",
+      "label": "Samsung Portable SSD T5",
+      "capacity_gib": 931.5,
+      "free_gib": 392.75,
+      "used_gib": 538.75
+    }
+  ],
+  "laptop_user_data": [
+    { "name": "AppData", "gib": 158.4, "cumulative_pct": 23.5 },
+    { "name": "Desktop", "gib": 148.12, "cumulative_pct": 45.5 },
+    { "name": "Pictures", "gib": 125.33, "cumulative_pct": 64.1 },
+    { "name": "Aether", "gib": 117.96, "cumulative_pct": 81.6 },
+    { "name": "Other user data", "gib": 57.34, "cumulative_pct": 90.1 },
+    { "name": "Videos", "gib": 47.47, "cumulative_pct": 97.2 },
+    { "name": "Downloads", "gib": 13.02, "cumulative_pct": 99.1 },
+    { "name": "Documents", "gib": 4.35, "cumulative_pct": 99.7 },
+    { "name": "Music", "gib": 1.66, "cumulative_pct": 100.0 }
+  ],
+  "installed_apps": [
+    { "name": "Steam", "gib": 78.143, "detail": "FC 26 alone is 58.621 GiB" },
+    { "name": "Overwatch", "gib": 74.504 },
+    { "name": "Unity", "gib": 20.421 },
+    { "name": "Hearthstone", "gib": 12.137 },
+    { "name": "Wizard101", "gib": 11.578 },
+    { "name": "Other apps and support data", "gib": 66.567 }
+  ],
+  "ssd": [
+    { "name": "Backup", "gib": 412.464 },
+    { "name": "Videos", "gib": 122.154 },
+    { "name": "tmp", "gib": 2.773 },
+    { "name": "Other system use", "gib": 1.359 },
+    { "name": "Free", "gib": 392.75 }
+  ],
+  "ssd_backup": [
+    { "name": "Desktop", "gib": 208.724 },
+    { "name": "Pictures", "gib": 126.567 },
+    { "name": "Aether", "gib": 31.248 },
+    { "name": "Music", "gib": 27.597 },
+    { "name": "CompressedBackups", "gib": 17.127 },
+    { "name": "Other backups", "gib": 1.201 }
+  ],
+  "actions": [
+    {
+      "priority": 1,
+      "state": "confirmed",
+      "action": "Delete five approved temporary folders",
+      "estimated_recovery_gib": 16.64
+    },
+    {
+      "priority": 2,
+      "state": "waiting",
+      "action": "Patch three SellSniper QA scripts after its active task stops",
+      "estimated_recovery_gib": 0,
+      "purpose": "Prevent the temporary browser profiles from returning"
+    },
+    {
+      "priority": 3,
+      "state": "review_later",
+      "action": "Move FC 26 and Overwatch through their launchers",
+      "estimated_recovery_gib": 133.125
+    },
+    {
+      "priority": 4,
+      "state": "verify_first",
+      "action": "Complete hash verification before removing local Desktop or Videos copies",
+      "estimated_recovery_gib": 195.59
+    }
+  ]
+}
