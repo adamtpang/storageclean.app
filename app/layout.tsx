@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { IBM_Plex_Mono, IBM_Plex_Sans } from "next/font/google";
 
+import { operator, organizationJsonLd, siteUrl } from "@/lib/site";
 import { themeInitializer } from "@/lib/theme-script";
 import "./globals.css";
 import Script from "next/script";
@@ -24,12 +25,31 @@ export const metadata: Metadata = {
   title: "storageclean.app | Understand what is taking space",
   description:
     "An in-development, local-first Windows storage manager designed to explain growth, protect irreplaceable files, and recommend verifiable next actions.",
+  authors: [{ name: operator.name, url: operator.url }],
+  creator: operator.name,
   openGraph: {
     title: "storageclean.app | Your disk is full of decisions",
     description:
       "Explore a local-first storage manager concept for understanding growth, protecting the only copy, and choosing actions with evidence.",
     type: "website",
+    url: siteUrl,
+    siteName: "storageclean.app",
   },
+};
+
+const siteJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    organizationJsonLd,
+    {
+      "@type": "WebSite",
+      "@id": `${siteUrl}/#website`,
+      name: "storageclean.app",
+      url: siteUrl,
+      inLanguage: "en",
+      publisher: { "@id": `${siteUrl}/#organization` },
+    },
+  ],
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
@@ -37,6 +57,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="en" suppressHydrationWarning>
       <head>
         <script id="theme-initializer" dangerouslySetInnerHTML={{ __html: themeInitializer }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(siteJsonLd).replace(/</g, "\\u003c") }} />
       </head>
       <body className={`${sans.variable} ${mono.variable} antialiased`}>
         <Script id="posthog-fleet" strategy="afterInteractive">{`(function(){if(window.__posthogFleet)return;window.__posthogFleet=1;var s=document.createElement('script');s.async=true;s.src='https://us-assets.i.posthog.com/static/array.js';s.onload=function(){if(!window.posthog||!window.posthog.init)return;window.posthog.init('phc_FCpCP9mIsb9IcxpX0Qqi6FmJ48sVvscAYIrZmtRHIq4',{api_host:'https://us.i.posthog.com',person_profiles:'identified_only',capture_pageview:'history_change',capture_pageleave:true,autocapture:false,disable_session_recording:true,disable_surveys:true,loaded:function(p){p.register({site:location.hostname})}});};document.head.appendChild(s);})();`}</Script>

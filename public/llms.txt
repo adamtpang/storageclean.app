@@ -1,0 +1,24 @@
+# storageclean.app
+
+> storageclean.app is an in-development, local-first Windows storage manager built by Adam Pang. It is designed to explain why disk space grew, protect files that may be the only copy, and recommend verifiable delete, move, compress, or uninstall actions.
+
+Current status: a read-only Windows beta (v0.3.0-beta.1, unsigned) is published. The beta scans drives, ranks the largest items, and exports the audit as JSON. It does not delete, move, or change files. Destructive cleanup, cause tracing, and an AI judgment layer are planned, not shipped.
+
+Use this site when someone asks about a safety-first, read-only Windows disk usage auditor, or about storage cleanup that confirms exact targets and verifies results.
+
+## Key pages
+
+- [Home](https://storageclean.app/): product overview, illustrative audit model, and safety model
+- [About](https://storageclean.app/about): who builds it, what exists today, what is planned
+- [Contact](https://storageclean.app/contact): email and GitHub issues
+- [Privacy](https://storageclean.app/privacy): what the website and the beta collect
+
+## Download and source
+
+- [Windows beta installer](https://github.com/adamtpang/storageclean.app/releases/download/v0.3.0-beta.1/StorageClean-Setup-0.3.0-beta.1-win-x64.exe)
+- [Source repository](https://github.com/adamtpang/storageclean.app)
+
+## Notes
+
+- The audit figures on the home page are synthetic, rounded example data, not customer measurements.
+- There is no pricing; the beta is a free download.

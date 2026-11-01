@@ -33,8 +33,8 @@ export function StorageShowcase() {
             <DriveIcon aria-hidden="true" className="size-5" strokeWidth={1.8} />
           </span>
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">Illustrative audit model</p>
-            <p className="mt-1 font-mono text-sm font-medium tabular-nums">Synthetic, rounded example data</p>
+            <div className="text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">Illustrative audit model</div>
+            <div className="mt-1 font-mono text-sm font-medium tabular-nums">Synthetic, rounded example data</div>
           </div>
         </div>
 
@@ -59,10 +59,10 @@ export function StorageShowcase() {
         <section className="p-4 sm:p-6" aria-live="polite">
           <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <p className="text-sm font-semibold">{dataset.label}</p>
+              <div className="text-sm font-semibold">{dataset.label}</div>
               <h2 className="mt-1 font-mono text-2xl font-semibold tracking-tight tabular-nums sm:text-3xl">{dataset.headline}</h2>
             </div>
-            <p className="max-w-xs text-sm text-muted-foreground sm:text-right">{dataset.subline}</p>
+            <div className="max-w-xs text-sm text-muted-foreground sm:text-right">{dataset.subline}</div>
           </div>
 
           <div className="mt-8 space-y-4">
@@ -94,7 +94,7 @@ export function StorageShowcase() {
         <aside className="border-t border-border bg-muted/40 p-4 sm:p-6 lg:border-l lg:border-t-0">
           <div className="flex items-center gap-2 text-success">
             <ShieldCheck aria-hidden="true" className="size-4" strokeWidth={1.8} />
-            <p className="text-xs font-semibold uppercase tracking-[0.12em]">Suggested next action</p>
+            <div className="text-xs font-semibold uppercase tracking-[0.12em]">Suggested next action</div>
           </div>
           <h3 className="mt-5 text-xl font-semibold tracking-tight">{dataset.action.title}</h3>
           <p className="mt-3 text-sm leading-6 text-muted-foreground">{dataset.action.copy}</p>
@@ -104,13 +104,13 @@ export function StorageShowcase() {
               <span className="text-xs font-medium text-muted-foreground">{dataset.action.metricLabel}</span>
               <Sparkles aria-hidden="true" className="size-4 text-primary" strokeWidth={1.8} />
             </div>
-            <p className="mt-2 font-mono text-3xl font-semibold tabular-nums">{dataset.action.metric}</p>
-            <p className="mt-2 text-xs leading-5 text-muted-foreground">{dataset.action.detail}</p>
+            <div className="mt-2 font-mono text-3xl font-semibold tabular-nums">{dataset.action.metric}</div>
+            <div className="mt-2 text-xs leading-5 text-muted-foreground">{dataset.action.detail}</div>
           </div>
 
           <div className="mt-4 flex items-center gap-2 rounded-lg bg-success-soft px-3 py-2 text-success">
             <span className="size-1.5 rounded-full bg-success" aria-hidden="true" />
-            <p className="text-xs font-semibold">Every destructive target requires confirmation.</p>
+            <div className="text-xs font-semibold">Every destructive target requires confirmation.</div>
           </div>
         </aside>
       </div>

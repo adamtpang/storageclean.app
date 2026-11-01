@@ -10,7 +10,6 @@ import {
   Fingerprint,
   Gauge,
   HardDriveDownload,
-  Layers3,
   LockKeyhole,
   MonitorDown,
   ScanSearch,
@@ -18,9 +17,47 @@ import {
   Sparkles,
 } from "lucide-react";
 
+import type { Metadata } from "next";
+
+import { BrandMark, SiteFooter } from "@/components/site-footer";
 import { StorageShowcase } from "@/components/storage-showcase";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { laptopAudit } from "@/lib/audit-data";
+import { operator, repoUrl, siteUpdated, siteUrl, windowsDownloadUrl } from "@/lib/site";
+
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
+
+const homeJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": `${siteUrl}/#webpage`,
+      url: siteUrl,
+      name: "storageclean.app | Understand what is taking space",
+      isPartOf: { "@id": `${siteUrl}/#website` },
+      about: { "@id": `${siteUrl}/#software` },
+      author: { "@type": "Person", name: operator.name, url: operator.url },
+      dateModified: siteUpdated,
+      inLanguage: "en",
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": `${siteUrl}/#software`,
+      name: "StorageClean for Windows",
+      description:
+        "A read-only Windows beta that scans drives, ranks the largest top-level items, and exports the audit as JSON without changing files.",
+      applicationCategory: "UtilitiesApplication",
+      operatingSystem: "Windows (x64)",
+      softwareVersion: "0.3.0-beta.1",
+      downloadUrl: windowsDownloadUrl,
+      codeRepository: repoUrl,
+      publisher: { "@id": `${siteUrl}/#organization` },
+    },
+  ],
+};
 
 const proofPoints = [
   { value: "Power law", label: "rank what matters", detail: "focus attention on the few folders driving most usage" },
@@ -70,23 +107,10 @@ const comparison = [
   { capability: "Verify completed work", conventional: "Varies by tool", storageclean: "Planned evidence step" },
 ];
 
-const windowsDownloadUrl =
-  "https://github.com/adamtpang/storageclean.app/releases/download/v0.3.0-beta.1/StorageClean-Setup-0.3.0-beta.1-win-x64.exe";
-
-function BrandMark() {
-  return (
-    <span className="grid size-9 grid-cols-3 items-end gap-0.5 rounded-lg bg-primary p-2 text-primary-foreground" aria-hidden="true">
-      <span className="h-2 rounded-sm bg-current opacity-60" />
-      <span className="h-3.5 rounded-sm bg-current opacity-80" />
-      <span className="h-5 rounded-sm bg-current" />
-    </span>
-  );
-}
-
 function SectionHeading({ eyebrow, title, copy }: { eyebrow: string; title: string; copy: string }) {
   return (
     <div className="max-w-3xl">
-      <p className="text-xs font-semibold uppercase tracking-[0.16em] text-primary">{eyebrow}</p>
+      <div className="text-xs font-semibold uppercase tracking-[0.16em] text-primary">{eyebrow}</div>
       <h2 className="mt-4 text-balance text-3xl font-semibold tracking-[-0.035em] sm:text-4xl">{title}</h2>
       <p className="mt-5 max-w-2xl text-base leading-7 text-muted-foreground">{copy}</p>
     </div>
@@ -112,6 +136,7 @@ function WindowsDownloadButton({ filled = false }: { filled?: boolean }) {
 export default function Home() {
   return (
     <main className="page-shell min-h-screen overflow-x-clip">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(homeJsonLd).replace(/</g, "\\u003c") }} />
       <header className="sticky top-0 z-50 border-b border-border/80 bg-background/80 backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 md:px-6 lg:px-8">
           <a href="#top" className="focus-ring inline-flex min-h-11 items-center gap-3 rounded-md pr-2" aria-label="storageclean.app home">
@@ -206,9 +231,9 @@ export default function Home() {
         <div className="mx-auto grid max-w-7xl divide-y divide-border px-4 md:grid-cols-3 md:divide-x md:divide-y-0 md:px-6 lg:px-8">
           {proofPoints.map((point) => (
             <div key={point.value} className="py-7 md:px-7 md:first:pl-0 md:last:pr-0">
-              <p className="font-mono text-2xl font-semibold tracking-tight tabular-nums">{point.value}</p>
-              <p className="mt-2 text-sm font-semibold">{point.label}</p>
-              <p className="mt-1 text-xs leading-5 text-muted-foreground">{point.detail}</p>
+              <div className="font-mono text-2xl font-semibold tracking-tight tabular-nums">{point.value}</div>
+              <div className="mt-2 text-sm font-semibold">{point.label}</div>
+              <div className="mt-1 text-xs leading-5 text-muted-foreground">{point.detail}</div>
             </div>
           ))}
         </div>
@@ -226,8 +251,8 @@ export default function Home() {
             <div className="rounded-xl border border-border bg-card p-5 sm:p-7">
               <div className="flex items-start justify-between gap-4">
                 <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">Laptop user data</p>
-                  <p className="mt-2 font-mono text-3xl font-semibold tabular-nums">{laptopAudit.headline.replace(" measured", "")}</p>
+                  <div className="text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">Laptop user data</div>
+                  <div className="mt-2 font-mono text-3xl font-semibold tabular-nums">{laptopAudit.headline.replace(" measured", "")}</div>
                 </div>
                 <span className="rounded-full bg-warning-soft px-3 py-1.5 font-mono text-xs font-semibold text-warning">{laptopAudit.topShare} in four</span>
               </div>
@@ -239,7 +264,7 @@ export default function Home() {
                       <span className="text-sm font-semibold">{folder.label}</span>
                       <span className="font-mono text-xs tabular-nums text-muted-foreground">{folder.share}</span>
                     </div>
-                    <p className="mt-5 font-mono text-lg font-semibold tabular-nums">{folder.display}</p>
+                    <div className="mt-5 font-mono text-lg font-semibold tabular-nums">{folder.display}</div>
                     <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-background">
                       <div className="hairline-gradient h-full rounded-full" style={{ width: `${(folder.value / laptopTopMax) * 100}%` }} />
                     </div>
@@ -255,12 +280,12 @@ export default function Home() {
                     <Gauge aria-hidden="true" className="size-5" strokeWidth={1.8} />
                   </span>
                   <div>
-                    <p className="text-sm font-semibold">Explain sudden growth</p>
-                    <p className="mt-1 text-xs text-muted-foreground">System growth, cache regrowth, and duplicate work</p>
+                    <div className="text-sm font-semibold">Explain sudden growth</div>
+                    <div className="mt-1 text-xs text-muted-foreground">System growth, cache regrowth, and duplicate work</div>
                   </div>
                 </div>
                 <p className="mt-6 text-sm leading-6 text-muted-foreground">
-                  A folder total says what is large. A cause chain says why today is different from yesterday and whether cleanup will hold.
+                  A folder total says what is large. A storageclean cause chain says why today is different from yesterday, which process created the growth, and whether cleanup will hold.
                 </p>
               </div>
 
@@ -270,12 +295,12 @@ export default function Home() {
                     <CircleGauge aria-hidden="true" className="size-5" strokeWidth={1.8} />
                   </span>
                   <div>
-                    <p className="text-sm font-semibold">Separate recovery from risk</p>
-                    <p className="mt-1 text-xs text-muted-foreground">Large does not mean disposable</p>
+                    <div className="text-sm font-semibold">Separate recovery from risk</div>
+                    <div className="mt-1 text-xs text-muted-foreground">Large does not mean disposable</div>
                   </div>
                 </div>
                 <p className="mt-6 text-sm leading-6 text-muted-foreground">
-                  Pictures and Videos may dominate storage while containing the only copy. Surface that fact before offering an action.
+                  Pictures and Videos folders may dominate storage while containing the only copy of personal files. storageclean is designed to surface that fact before offering any delete, move, or compress action.
                 </p>
               </div>
             </div>
@@ -288,7 +313,7 @@ export default function Home() {
           <SectionHeading
             eyebrow="Three structural wedges"
             title="Pattern matching finds files. Context finds the right move."
-            copy="Conventional cleaners are strong at deterministic cache paths. This concept adds a decision layer for cases where file type alone is not enough."
+            copy="Conventional cleaners are strong at deterministic cache paths. The storageclean concept adds a decision layer for cases where file type alone is not enough to know whether a file is safe to remove."
           />
 
           <div className="mt-12 grid gap-4 lg:grid-cols-3">
@@ -302,7 +327,7 @@ export default function Home() {
                     </span>
                     <span className="font-mono text-xs text-muted-foreground">{wedge.note}</span>
                   </div>
-                  <p className="mt-8 text-xs font-semibold uppercase tracking-[0.14em] text-primary">{wedge.label}</p>
+                  <div className="mt-8 text-xs font-semibold uppercase tracking-[0.14em] text-primary">{wedge.label}</div>
                   <h3 className="mt-3 text-xl font-semibold tracking-tight">{wedge.title}</h3>
                   <p className="mt-4 text-sm leading-6 text-muted-foreground">{wedge.copy}</p>
                 </article>
@@ -318,7 +343,7 @@ export default function Home() {
             <SectionHeading
               eyebrow="Safety is the product"
               title="A cleaner should earn the right to delete."
-              copy="AI can recommend. It cannot blur the line between a measured fact, a proposed action, user approval, execution, and verification. Those states remain visible."
+              copy="In storageclean, AI can recommend. AI cannot blur the line between a measured fact, a proposed action, user approval, execution, and verification, so all five states remain visible to the user."
             />
 
             <div className="action-step relative grid gap-5 md:grid-cols-5">
@@ -330,11 +355,11 @@ export default function Home() {
                       <Icon aria-hidden="true" className="size-4" strokeWidth={1.8} />
                     </span>
                     <div className="md:mt-4">
-                      <p className="text-sm font-semibold">
+                      <div className="text-sm font-semibold">
                         <span className="sr-only">Step {index + 1}: </span>
                         {step.title}
-                      </p>
-                      <p className="mt-1 text-xs leading-5 text-muted-foreground">{step.copy}</p>
+                      </div>
+                      <div className="mt-1 text-xs leading-5 text-muted-foreground">{step.copy}</div>
                     </div>
                   </div>
                 );
@@ -347,21 +372,21 @@ export default function Home() {
               <div>
                 <div className="flex items-center gap-2 text-success">
                   <ShieldCheck aria-hidden="true" className="size-4" strokeWidth={1.8} />
-                  <p className="text-xs font-semibold uppercase tracking-[0.14em]">Exact-target doctrine</p>
+                  <div className="text-xs font-semibold uppercase tracking-[0.14em]">Exact-target doctrine</div>
                 </div>
                 <h3 className="mt-4 text-2xl font-semibold tracking-tight">Nothing destructive hides behind “clean.”</h3>
                 <p className="mt-4 text-sm leading-6 text-muted-foreground">
-                  The user sees the path, size, reason, exclusions, reversibility, and verification plan before confirming. Quarantine wins when deletion is not necessary.
+                  Before confirming any storageclean action, the user sees the exact path, size, reason, exclusions, reversibility, and verification plan. Quarantine wins when deletion is not necessary.
                 </p>
               </div>
 
               <div className="rounded-lg bg-muted p-4 font-mono text-xs leading-6 sm:p-5">
-                <p className="text-muted-foreground">PROPOSED ACTION</p>
-                <p className="mt-3 break-all text-foreground">C:\Users\you\AppData\Local\Temp\example-cache</p>
+                <div className="text-muted-foreground">PROPOSED ACTION</div>
+                <div className="mt-3 break-all text-foreground">C:\Users\you\AppData\Local\Temp\example-cache</div>
                 <div className="mt-4 grid gap-3 sm:grid-cols-3">
-                  <div><p className="text-muted-foreground">Estimated</p><p className="mt-1 font-semibold">About 10 GiB</p></div>
-                  <div><p className="text-muted-foreground">Risk</p><p className="mt-1 font-semibold">Temporary</p></div>
-                  <div><p className="text-muted-foreground">Verify</p><p className="mt-1 font-semibold">Path absent</p></div>
+                  <div><div className="text-muted-foreground">Estimated</div><div className="mt-1 font-semibold">About 10 GiB</div></div>
+                  <div><div className="text-muted-foreground">Risk</div><div className="mt-1 font-semibold">Temporary</div></div>
+                  <div><div className="text-muted-foreground">Verify</div><div className="mt-1 font-semibold">Path absent</div></div>
                 </div>
                 <div className="mt-5 flex items-center gap-2 text-success">
                   <Check aria-hidden="true" className="size-4" strokeWidth={2} />
@@ -377,10 +402,10 @@ export default function Home() {
         <div className="mx-auto max-w-7xl px-4 md:px-6 lg:px-8">
           <div className="grid gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:items-start">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-primary">Product direction</p>
+              <div className="text-xs font-semibold uppercase tracking-[0.16em] text-primary">Product direction</div>
               <h2 className="mt-4 text-balance text-3xl font-semibold tracking-[-0.035em] sm:text-4xl">Known-path cleanup is fast. The hard part is deciding what happens next.</h2>
               <p className="mt-5 text-base leading-7 text-muted-foreground">
-                Conventional cleanup tools are good at known temporary paths. This prototype explores a decision layer for cause, intent, irreplaceability, and proof.
+                Conventional cleanup tools are good at known temporary paths. The storageclean prototype explores a decision layer on top of that baseline for cause, intent, irreplaceability, and proof.
               </p>
             </div>
 
@@ -417,13 +442,13 @@ export default function Home() {
               <div>
                 <div className="flex items-center gap-2 text-primary">
                   <Sparkles aria-hidden="true" className="size-4" strokeWidth={1.8} />
-                  <p className="text-xs font-semibold uppercase tracking-[0.14em]">Read-only desktop beta</p>
+                  <div className="text-xs font-semibold uppercase tracking-[0.14em]">Read-only desktop beta</div>
                 </div>
                 <h2 className="mt-5 max-w-3xl text-balance text-3xl font-semibold tracking-[-0.04em] sm:text-5xl">
                   Clear space without losing the reason you kept it.
                 </h2>
                 <p className="mt-5 max-w-2xl text-base leading-7 text-muted-foreground">
-                  Designed around lessons from hands-on storage audits: recurring growth, concentrated usage, and files whose value cannot be inferred from an extension.
+                  The storageclean Windows beta is read-only: it scans drives, ranks the largest items, and exports the audit as JSON. It was designed around lessons from hands-on storage audits, including recurring growth, concentrated usage, and files whose value cannot be inferred from an extension.
                 </p>
               </div>
               <WindowsDownloadButton filled />
@@ -432,21 +457,7 @@ export default function Home() {
         </div>
       </section>
 
-      <footer className="border-t border-border bg-background/70">
-        <div className="mx-auto flex max-w-7xl flex-col gap-5 px-4 py-8 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between md:px-6 lg:px-8">
-          <div className="flex items-center gap-3">
-            <BrandMark />
-            <div>
-              <p className="font-semibold text-foreground">storageclean.app</p>
-              <p className="mt-1">Audit first. Confirm exact targets. Verify every result.</p>
-            </div>
-          </div>
-          <div className="flex items-center gap-2 font-mono tabular-nums">
-            <Layers3 aria-hidden="true" className="size-4" strokeWidth={1.8} />
-            <span>Windows read-only beta · v0.3.0</span>
-          </div>
-        </div>
-      </footer>
+      <SiteFooter />
     </main>
   );
 }
